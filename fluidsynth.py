@@ -630,6 +630,13 @@ class Synth:
         self.audio_driver = None
         self.midi_driver = None
         self.router = None
+
+    def __enter__(self, *args, **kwargs):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.delete()
+
     def setting(self, opt, val):
         """change an arbitrary synth setting, type-smart"""
         if isinstance(val, (str, bytes)):
